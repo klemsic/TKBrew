@@ -1,0 +1,30 @@
+
+  # App config
+  #server.port=8080
+  #spring.application.name=BootMongo
+  #server.context-path=/user
+
+
+
+spring:
+# ===============================
+# = Mongo DB
+# ===============================
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: tkbrew
+      username: tk
+      password: tk
+      authentication-database: admin
+
+
+# ===============================
+# = Logging configurations
+# ===============================
+logging:
+  level:
+    root: WARN
+    cz.klemsa: DEBUG
+    org.springframework.web: INFO
