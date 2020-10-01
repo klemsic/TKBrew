@@ -1,13 +1,34 @@
-package cz.klemsa.tkbrew.model;
+package cz.klemsa.tkbrew.model.ingredient;
 
-import org.springframework.data.annotation.TypeAlias;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@TypeAlias("Water")
 @Document(collection = "ingredient")
 public class Water extends Ingredient {
 
-    public Water(int id, String name, String description) {
-        super(id, name, description);
+    /**
+     * No-arg constructor that's create object with default fields.
+     */
+    public Water() {
+        super();
+    }
+
+    /**
+     *
+     * @param name of ingredient
+     * @param description of ingredient
+     */
+    public Water(String name, String description) {
+        super(name, description);
+    }
+
+    /**
+     *
+     * @param objectId used to persist
+     * @param name of ingredient
+     * @param description of ingredient
+     */
+    public Water(String objectId, String name, String description) {
+        super(new ObjectId(objectId), name, description);
     }
 }

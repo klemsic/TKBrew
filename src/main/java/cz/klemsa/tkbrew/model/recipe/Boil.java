@@ -1,2 +1,4 @@
-package cz.klemsa.tkbrew.model.recipe;public class Boil {
+package cz.klemsa.tkbrew.model.recipe;
+
+public class Boil {
 }

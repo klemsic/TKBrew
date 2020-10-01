@@ -1,2 +1,7 @@
-package cz.klemsa.tkbrew.model.ingredient;public enum YeastType {
+package cz.klemsa.tkbrew.model.ingredient;
+
+public enum YeastType {
+    TOP,
+    BOTTOM,
+    UNKNOWN
 }

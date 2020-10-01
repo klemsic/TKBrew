@@ -1,2 +1,4 @@
-package cz.klemsa.tkbrew.model.recipe;public class Fermentation {
+package cz.klemsa.tkbrew.model.recipe;
+
+public class Fermentation {
 }

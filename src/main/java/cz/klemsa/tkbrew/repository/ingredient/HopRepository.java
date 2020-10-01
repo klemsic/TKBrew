@@ -1,4 +1,4 @@
-package cz.klemsa.tkbrew.repository;
+package cz.klemsa.tkbrew.repository.ingredient;
 
 import cz.klemsa.tkbrew.model.ingredient.Hop;
 import org.bson.types.ObjectId;

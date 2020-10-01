@@ -1,4 +1,4 @@
-package cz.klemsa.tkbrew.model.mash;
+package cz.klemsa.tkbrew.model.recipe;
 
 public enum MashType {
     SINGLE_INFUSION,

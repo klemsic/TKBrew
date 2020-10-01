@@ -1,4 +1,4 @@
-package cz.klemsa.tkbrew.model.mash;
+package cz.klemsa.tkbrew.model.recipe;
 
 import cz.klemsa.tkbrew.model.ingredient.Ingredient;
 
