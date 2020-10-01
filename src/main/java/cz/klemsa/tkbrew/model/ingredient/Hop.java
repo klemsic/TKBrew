@@ -3,7 +3,7 @@ package cz.klemsa.tkbrew.model;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@TypeAlias("Ingredient")
+@TypeAlias("Hop")
 @Document(collection = "ingredient")
 public class Hop extends Ingredient {
 

@@ -9,12 +9,13 @@ public class Malt extends Ingredient {
 
     private double color;
 
-    public double getColor() {
-        return color;
-    }
-
     public Malt(int id, String name, String description, double color) {
         super(id, name, description);
         this.color = color;
     }
+
+    public double getColor() {
+        return color;
+    }
+
 }
