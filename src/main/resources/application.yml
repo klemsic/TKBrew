@@ -5,11 +5,10 @@
   #server.context-path=/user
 
 
-
+# ===============================
+# = SPRING
+# ===============================
 spring:
-# ===============================
-# = Mongo DB
-# ===============================
   data:
     mongodb:
       host: localhost
@@ -19,6 +18,12 @@ spring:
       password: tk
       authentication-database: admin
 
+# ===============================
+# = SPRING DOC
+# ===============================
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
 
 # ===============================
 # = Logging configurations

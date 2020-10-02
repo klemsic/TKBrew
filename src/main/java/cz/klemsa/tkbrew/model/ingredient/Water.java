@@ -1,16 +1,21 @@
 package cz.klemsa.tkbrew.model.ingredient;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * Class that's represents water.
+ * @author tomasklemsa
+ */
 @Document(collection = "ingredient")
-public class Water extends Ingredient {
+public final class Water extends Ingredient {
 
     /**
-     * No-arg constructor that's create object with default fields.
+     * No-arg constructor that's create water with default fields.
      */
     public Water() {
-        super();
+        this(null, null);
     }
 
     /**
@@ -19,7 +24,7 @@ public class Water extends Ingredient {
      * @param description of ingredient
      */
     public Water(String name, String description) {
-        super(name, description);
+        this(new ObjectId(), name, description);
     }
 
     /**
@@ -28,7 +33,8 @@ public class Water extends Ingredient {
      * @param name of ingredient
      * @param description of ingredient
      */
-    public Water(String objectId, String name, String description) {
-        super(new ObjectId(objectId), name, description);
+    @PersistenceConstructor
+    public Water(ObjectId objectId, String name, String description) {
+        super(objectId, name, description);
     }
 }

@@ -4,8 +4,12 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * Class that's represents malt.
+ * @author tomasklemsa
+ */
 @Document(collection = "ingredient")
-public class Malt extends Ingredient {
+public final class Malt extends Ingredient {
     private static final double DEFAULT_COLOR = 0.0;
     private static final double DEFAULT_YIELD = 0.75;
 
@@ -13,12 +17,10 @@ public class Malt extends Ingredient {
     private final double yield;
 
     /**
-     * No-arg constructor that's create object with default fields.
+     * No-arg constructor that's create malt with default fields.
      */
     public Malt() {
-        super();
-        this.color = DEFAULT_COLOR;
-        this.yield = DEFAULT_YIELD;
+        this(null, null, DEFAULT_COLOR, DEFAULT_YIELD);
     }
 
     /**
@@ -28,10 +30,8 @@ public class Malt extends Ingredient {
      * @param color of malt in EBC units
      * @param yield of malt, 75% yield = 0.75
      */
-    public Malt(String name, String description, double color, double yield) {
-        super(name, description);
-        this.color = color;
-        this.yield = yield;
+    public Malt(String name, String description, Double color, Double yield) {
+        this(new ObjectId(), name, description, color, yield);
     }
 
     /**
@@ -43,10 +43,10 @@ public class Malt extends Ingredient {
      * @param yield of malt, 75% yield = 0.75
      */
     @PersistenceConstructor
-    public Malt(ObjectId objectId, String name, String description, double color, double yield) {
+    public Malt(ObjectId objectId, String name, String description, Double color, Double yield) {
         super(objectId, name, description);
-        this.color = color;
-        this.yield = yield;
+        this.color = color == null ? DEFAULT_COLOR : color;
+        this.yield = yield == null ? DEFAULT_YIELD : yield;
     }
 
     public double getColor() {

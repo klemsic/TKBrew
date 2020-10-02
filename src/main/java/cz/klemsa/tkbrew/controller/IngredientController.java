@@ -1,9 +1,6 @@
 package cz.klemsa.tkbrew.controller;
 
 import cz.klemsa.tkbrew.model.ingredient.*;
-import cz.klemsa.tkbrew.model.recipe.IngredientRow;
-import cz.klemsa.tkbrew.model.recipe.Mash;
-import cz.klemsa.tkbrew.model.recipe.MashType;
 import cz.klemsa.tkbrew.repository.ingredient.HopRepository;
 import cz.klemsa.tkbrew.repository.ingredient.IngredientRepository;
 import cz.klemsa.tkbrew.repository.ingredient.MaltRepository;
@@ -40,7 +37,7 @@ public class IngredientController {
     }
 
     @GetMapping("/all")
-    public List<Ingredient> getAllIngredients() {
+    public List<Ingredient> getAll() {
         Malt malt = new Malt("Plzeňský", "Světlý slad pro až  100% sypání.",3.0,0.95);
         Malt malt1 = new Malt("Bavorský", "Bavorský slad.",25.0,0.85);
 
@@ -55,7 +52,7 @@ public class IngredientController {
 
 
         LOG.info("Getting all ingredients.");
-        List<Ingredient>i =  ingredientRepository.findAll();
+        List<Ingredient> i = ingredientRepository.findAll();
         return i;
     }
 

@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author tomasklemsa
  */
 @Document(collection = "ingredient")
-public class Hop extends Ingredient {
+public final class Hop extends Ingredient {
     private static final double DEFAULT_ALPHA = 0.0;
     private static final double DEFAULT_BETA = 0.0;
 
@@ -17,12 +17,10 @@ public class Hop extends Ingredient {
     private final double beta;
 
     /**
-     * No-arg constructor that's create object with default fields.
+     * No-arg constructor that's create hop with default fields.
      */
     public Hop() {
-        super();
-        this.alpha = DEFAULT_ALPHA;
-        this.beta = DEFAULT_BETA;
+        this(null, null, DEFAULT_ALPHA, DEFAULT_BETA);
     }
 
     /**
@@ -32,10 +30,8 @@ public class Hop extends Ingredient {
      * @param alpha acids, 10% of alpha acids = 0.1
      * @param beta acids, 10% of beta acids = 0.1
      */
-    public Hop(String name, String description, double alpha, double beta) {
-        super(name, description);
-        this.alpha = alpha ;
-        this.beta = beta;
+    public Hop(String name, String description, Double alpha, Double beta) {
+        this(new ObjectId(), name, description, alpha, beta);
     }
 
     /**
@@ -47,10 +43,10 @@ public class Hop extends Ingredient {
      * @param beta acids, 10% of beta acids = 0.1
      */
     @PersistenceConstructor
-    public Hop(ObjectId objectId, String name, String description, double alpha, double beta) {
+    public Hop(ObjectId objectId, String name, String description, Double alpha, Double beta) {
         super(objectId, name, description);
-        this.alpha = alpha;
-        this.beta = beta;
+        this.alpha = alpha == null ? DEFAULT_ALPHA : alpha;
+        this.beta = beta == null ? DEFAULT_BETA : beta;
     }
 
     public double getAlpha() {

@@ -2,13 +2,12 @@ package cz.klemsa.tkbrew.model.recipe;
 
 import cz.klemsa.tkbrew.model.ingredient.Ingredient;
 
-public class IngredientRow {
+public class WaterRow {
 
-    Ingredient ingredient;
+    private final Ingredient ingredient;
+    private final double percent;
 
-    double percent;
-
-    public IngredientRow(Ingredient ingredient, double percent) {
+    public WaterRow(Ingredient ingredient, double percent) {
         this.ingredient = ingredient;
         this.percent = percent;
     }

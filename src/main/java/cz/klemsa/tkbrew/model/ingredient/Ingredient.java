@@ -18,12 +18,10 @@ public abstract class Ingredient {
     private final String description;
 
     /**
-     * No-arg constructor that's create object with default fields.
+     * No-arg constructor that's create ingredient with default fields.
      */
     public Ingredient() {
-        this.objectId = new ObjectId();
-        this.name = DEFAULT_NAME;
-        this.description = DEFAULT_DESCRIPTION;
+        this(DEFAULT_NAME, DEFAULT_DESCRIPTION);
     }
 
     /**
@@ -32,9 +30,7 @@ public abstract class Ingredient {
      * @param description of ingredient if null it will be set to an empty string
      */
     public Ingredient(String name, String description) {
-        this.objectId = new ObjectId();
-        this.name = name == null ? DEFAULT_NAME : name;
-        this.description = description == null ? DEFAULT_DESCRIPTION : description;
+        this(new ObjectId(), name, description);
     }
 
     /**
