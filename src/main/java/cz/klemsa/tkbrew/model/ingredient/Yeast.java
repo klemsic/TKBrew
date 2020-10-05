@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author tomasklemsa
  */
 @Document(collection = "ingredient")
-public final class Yest extends Ingredient {
+public final class Yeast extends Ingredient {
     private static final double DEFAULT_ATTENUATION = 0.75;
     private static final YeastType DEFAULT_YEAST_TYPE = YeastType.UNKNOWN;
 
@@ -19,7 +19,7 @@ public final class Yest extends Ingredient {
     /**
      * No-arg constructor that's create yeast with default fields.
      */
-    public Yest() {
+    public Yeast() {
         this(null, null, DEFAULT_ATTENUATION, DEFAULT_YEAST_TYPE);
     }
 
@@ -30,21 +30,30 @@ public final class Yest extends Ingredient {
      * @param attenuation of yeast, 75% of attenuation = 0.75
      * @param yeastType of yeast
      */
-    public Yest(String name, String description, double attenuation, YeastType yeastType) {
+    public Yeast(String name, String description, double attenuation, YeastType yeastType) {
         this(new ObjectId(), name, description, attenuation, yeastType);
     }
 
     /**
+     * Copy constructor witch create yeast with new id.
+     * @param id of new yeast, or null and it will be created automatically
+     * @param yeast from which we want to make a copy
+     */
+    public Yeast(ObjectId id, Yeast yeast) {
+        this(id, yeast.getName(), yeast.getDescription(), yeast.attenuation, yeast.yeastType);
+    }
+
+    /**
      *
-     * @param objectId used to persist
+     * @param id used to persist
      * @param name of ingredient
      * @param description of ingredient
      * @param attenuation of yeast, 75% of attenuation = 0.75
      * @param yeastType of yeast
      */
     @PersistenceConstructor
-    public Yest(ObjectId objectId, String name, String description, Double attenuation, YeastType yeastType) {
-        super(objectId, name, description);
+    public Yeast(ObjectId id, String name, String description, Double attenuation, YeastType yeastType) {
+        super(id, name, description);
         this.attenuation = attenuation == null ? DEFAULT_ATTENUATION : attenuation;
         this.yeastType = yeastType == null ? DEFAULT_YEAST_TYPE : yeastType;
     }

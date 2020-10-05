@@ -32,23 +32,27 @@ public class RecipeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/insert")
+    public ResponseEntity<Boolean> recipeInsert() {
 
-//    Recipe.RecipeBuilder builder = new Recipe.RecipeBuilder();
-//    builder.setName("Plzeňský ležák");
-//    builder.setDescription("Ležák Plzeňského typu.");
-//
-//    List<WaterRow> waterRows = new ArrayList<>();
-//    waterRows.add(new WaterRow(new Water("Voda","Měká voda."),1.0));
-//    WaterTable waterTable = new WaterTable(waterRows);
-//    builder.setWaterTable(waterTable);
-//
-//    Recipe recipe = new Recipe(builder);
-//
-//    recipeRepository.save(recipe);
-//
-//
-//    List<Recipe> response = recipeRepository.findAll();
-//
-//    return new ResponseEntity<>(true,HttpStatus.OK);
+    Recipe.RecipeBuilder builder = new Recipe.RecipeBuilder();
+    builder.setName("Plzeňský ležák");
+    builder.setDescription("Ležák Plzeňského typu.");
+
+    List<WaterRow> waterRows = new ArrayList<>();
+    waterRows.add(new WaterRow(new Water("Voda","Měká voda."),1.0));
+    WaterTable waterTable = new WaterTable(waterRows);
+    builder.setWaterTable(waterTable);
+
+    Recipe recipe = new Recipe(builder);
+
+    recipeRepository.save(recipe);
+
+
+    List<Recipe> response = recipeRepository.findAll();
+
+    return new ResponseEntity<>(true,HttpStatus.OK);
+
+    }
 
 }

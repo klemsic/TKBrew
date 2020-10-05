@@ -129,8 +129,8 @@ public final class Recipe {
         this.fermentation = fermentation == null ? DEFAULT_FERMENTATION : fermentation;
     }
 
-    public ObjectId getObjectId() {
-        return objectId;
+    public String getObjectId() {
+        return objectId.toHexString();
     }
 
     public String getName() {

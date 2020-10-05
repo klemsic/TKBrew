@@ -35,16 +35,25 @@ public final class Malt extends Ingredient {
     }
 
     /**
+     * Copy constructor witch create malt with new id.
+     * @param id of new malt, or null and it will be created automatically
+     * @param malt from which we want to make a copy
+     */
+    public Malt(ObjectId id, Malt malt) {
+        this(id, malt.getName(), malt.getDescription(), malt.color, malt.yield);
+    }
+
+    /**
      *
-     * @param objectId used to persist
+     * @param id used to persist
      * @param name of ingredient
      * @param description of ingredient
      * @param color of malt in EBC units
      * @param yield of malt, 75% yield = 0.75
      */
     @PersistenceConstructor
-    public Malt(ObjectId objectId, String name, String description, Double color, Double yield) {
-        super(objectId, name, description);
+    public Malt(ObjectId id, String name, String description, Double color, Double yield) {
+        super(id, name, description);
         this.color = color == null ? DEFAULT_COLOR : color;
         this.yield = yield == null ? DEFAULT_YIELD : yield;
     }

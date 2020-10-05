@@ -12,7 +12,7 @@ public abstract class Ingredient {
     private static final String DEFAULT_DESCRIPTION = "";
 
     @Id
-    private final ObjectId objectId;
+    private final ObjectId id;
 
     private final String name;
     private final String description;
@@ -35,18 +35,18 @@ public abstract class Ingredient {
 
     /**
      *
-     * @param objectId if null it will be set to an new ObjectId.
+     * @param id if null it will be set to an new ObjectId.
      * @param name of ingredient if null it will be set to an empty string
      * @param description of ingredient if null it will be set to an empty string
      */
-    public Ingredient(ObjectId objectId, String name, String description) {
-        this.objectId = objectId == null ? new ObjectId() : objectId;
+    public Ingredient(ObjectId id, String name, String description) {
+        this.id = id == null ? new ObjectId() : id;
         this.name = name == null ? DEFAULT_NAME : name;
         this.description = description == null ? DEFAULT_DESCRIPTION : description;
     }
 
-    public ObjectId getObjectId() {
-        return objectId;
+    public String getId() {
+        return id.toHexString();
     }
 
     public String getName() {

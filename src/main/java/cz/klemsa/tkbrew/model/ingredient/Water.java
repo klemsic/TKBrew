@@ -15,7 +15,16 @@ public final class Water extends Ingredient {
      * No-arg constructor that's create water with default fields.
      */
     public Water() {
-        this(null, null);
+        this((String) null, (String) null);
+    }
+
+    /**
+     * Copy constructor witch create water with new id.
+     * @param id of new water, or null and it will be created automatically
+     * @param water from which we want to make a copy
+     */
+    public Water(ObjectId id, Water water) {
+        this(id, water.getName(), water.getDescription());
     }
 
     /**
@@ -29,12 +38,12 @@ public final class Water extends Ingredient {
 
     /**
      *
-     * @param objectId used to persist
+     * @param id used to persist
      * @param name of ingredient
      * @param description of ingredient
      */
     @PersistenceConstructor
-    public Water(ObjectId objectId, String name, String description) {
-        super(objectId, name, description);
+    public Water(ObjectId id, String name, String description) {
+        super(id, name, description);
     }
 }
