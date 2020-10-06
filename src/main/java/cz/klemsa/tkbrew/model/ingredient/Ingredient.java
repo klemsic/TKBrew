@@ -56,4 +56,8 @@ public abstract class Ingredient {
     public String getDescription() {
         return description;
     }
+
+    public String getType() {
+        return this.getClass().getSimpleName();
+    }
 }

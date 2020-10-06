@@ -2,7 +2,6 @@ package cz.klemsa.tkbrew.controller;
 
 import cz.klemsa.tkbrew.model.ingredient.*;
 import cz.klemsa.tkbrew.repository.ingredient.*;
-import org.apache.coyote.Response;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +9,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
- *
+ * Ingredient controller for CRUD operations.
  * @author tomasklemsa
  */
 @RestController
 @RequestMapping("/ingredient")
 public class IngredientController {
+    private static final String ID_PATH_VARIABLE = "{id:[0-9a-fA-F]{24}}"; // hex value
 
     @Autowired
     private IngredientRepository ingredientRepository;
@@ -26,16 +27,15 @@ public class IngredientController {
     private Logger log;
 
     // --------------------------------------------------
-    // - GET
+    // - GET Methods
     // --------------------------------------------------
 
-    // TODO: Když je metoda zapolaná vrací se mi nějaká podtřída Ingredient, ale nepoznám jaká... Možná by bylo vhodné udělat pro každou ingredient jednu URI, například "/ingredient/hop/{id}"
     /**
-     *
-     * @param id
-     * @return
+     * Gets ingredient by specific id.
+     * @param id in hexadecimal form like "5f7ac903e3ba595a5580e764"
+     * @return ingredient
      */
-    @GetMapping("/{id:[0-9a-fA-F]{24}}") // 12 Bytes hex value
+    @GetMapping("/" + ID_PATH_VARIABLE)
     public ResponseEntity<Ingredient> getIngredient(@PathVariable("id") String id) {
         if (ObjectId.isValid(id)) {
             Optional<Ingredient>  ingredient = ingredientRepository.findById(new ObjectId(id));
@@ -53,9 +53,21 @@ public class IngredientController {
         }
     }
 
+    /**
+     *
+     * @return all ingredients
+     */
+    @GetMapping
+    public ResponseEntity<List<Ingredient>> getAll() {
+        List<Ingredient> ingredients = ingredientRepository.findAll();
+        log.info("Getting all ingredients.");
+        return new ResponseEntity<>(ingredients, HttpStatus.OK);
+    }
+
     // --------------------------------------------------
-    // - POST
+    // - POST Methods
     // --------------------------------------------------
+
     /**
      *
      * @param hop
@@ -96,71 +108,6 @@ public class IngredientController {
         return insertIngredient(yeast);
     }
 
-    // --------------------------------------------------
-    // - PUT
-    // --------------------------------------------------
-    /**
-     *
-     * @param hop
-     * @return
-     */
-    @PutMapping("/hop/{id:[0-9a-fA-F]{24}}") // 12 Bytes hex value
-    public ResponseEntity<Void> updateHop(@PathVariable("id") String id, @RequestBody Hop hop) {
-        Hop copy = new Hop(new ObjectId(id), hop); // Create new ingredient with specific id.
-        return updateIngredient(copy);
-    }
-
-    /**
-     *
-     * @param malt
-     * @return
-     */
-    @PutMapping("/malt/{id:[0-9a-fA-F]{24}}") // 12 Bytes hex value
-    public ResponseEntity<Void> updateMalt(@PathVariable("id") String id, @RequestBody Malt malt) {
-        Malt copy = new Malt(new ObjectId(id), malt); // Create new ingredient with specific id.
-        return updateIngredient(copy);
-    }
-
-    /**
-     *
-     * @param water
-     * @return
-     */
-    @PutMapping("/water/{id:[0-9a-fA-F]{24}}") // 12 Bytes hex value
-    public ResponseEntity<Void> updateWater(@PathVariable("id") String id, @RequestBody Water water) {
-        Water copy = new Water(new ObjectId(id), water); // Create new ingredient with specific id.
-        return updateIngredient(copy);
-    }
-
-    /**
-     *
-     * @param yeast
-     * @return
-     */
-    @PutMapping("/yeast/{id:[0-9a-fA-F]{24}}") // 12 Bytes hex value
-    public ResponseEntity<Void> updateYeast(@PathVariable("id") String id, @RequestBody Yeast yeast) {
-        Yeast copy = new Yeast(new ObjectId(id), yeast); // Create new ingredient with specific id.
-        return updateIngredient(copy);
-    }
-
-    // --------------------------------------------------
-    // - DELETE
-    // --------------------------------------------------
-    /**
-     *
-     * @return
-     */
-    @DeleteMapping("/{id:[0-9a-fA-F]{24}}") // 12 Bytes hex value
-    public ResponseEntity<Void> deleteIngredient(@PathVariable("id") String id) {
-        ObjectId objectId = new ObjectId(id);
-
-        if (ingredientRepository.findById(objectId).isPresent()) {
-            ingredientRepository.deleteById(objectId);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
     /**
      *
      * @param ingredient
@@ -180,8 +127,60 @@ public class IngredientController {
         }
     }
 
+    // --------------------------------------------------
+    // - PUT Methods
+    // --------------------------------------------------
+
     /**
      *
+     * @param id in hexadecimal form like "5f7ac903e3ba595a5580e764"
+     * @param hop
+     * @return
+     */
+    @PutMapping("/hop/" + ID_PATH_VARIABLE)
+    public ResponseEntity<Void> updateHop(@PathVariable("id") String id, @RequestBody Hop hop) {
+        Hop copy = new Hop(new ObjectId(id), hop); // Create new ingredient with specific id.
+        return updateIngredient(copy);
+    }
+
+    /**
+     *
+     * @param id in hexadecimal form like "5f7ac903e3ba595a5580e764"
+     * @param malt
+     * @return
+     */
+    @PutMapping("/malt/" + ID_PATH_VARIABLE)
+    public ResponseEntity<Void> updateMalt(@PathVariable("id") String id, @RequestBody Malt malt) {
+        Malt copy = new Malt(new ObjectId(id), malt); // Create new ingredient with specific id.
+        return updateIngredient(copy);
+    }
+
+    /**
+     *
+     * @param id in hexadecimal form like "5f7ac903e3ba595a5580e764"
+     * @param water
+     * @return
+     */
+    @PutMapping("/water/" + ID_PATH_VARIABLE)
+    public ResponseEntity<Void> updateWater(@PathVariable("id") String id, @RequestBody Water water) {
+        Water copy = new Water(new ObjectId(id), water); // Create new ingredient with specific id.
+        return updateIngredient(copy);
+    }
+
+    /**
+     *
+     * @param id in hexadecimal form like "5f7ac903e3ba595a5580e764"
+     * @param yeast
+     * @return
+     */
+    @PutMapping("/yeast/" + ID_PATH_VARIABLE)
+    public ResponseEntity<Void> updateYeast(@PathVariable("id") String id, @RequestBody Yeast yeast) {
+        Yeast copy = new Yeast(new ObjectId(id), yeast); // Create new ingredient with specific id.
+        return updateIngredient(copy);
+    }
+
+    /**
+     * @Path
      * @param ingredient
      * @return
      */
@@ -197,5 +196,25 @@ public class IngredientController {
             log.info("New ingredient is created with id=" + id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
+    }
+
+    // --------------------------------------------------
+    // - DELETE Methods
+    // --------------------------------------------------
+
+    /**
+     *
+     * @param id in hexadecimal form like "5f7ac903e3ba595a5580e764"
+     * @return
+     */
+    @DeleteMapping("/" + ID_PATH_VARIABLE)
+    public ResponseEntity<Void> deleteIngredient(@PathVariable("id") String id) {
+        ObjectId objectId = new ObjectId(id);
+
+        if (ingredientRepository.findById(objectId).isPresent()) {
+            ingredientRepository.deleteById(objectId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

@@ -12,6 +12,7 @@ public class Config {
     // --------------------------------------------------
     // - LOG
     // --------------------------------------------------
+    // TODO: Špatně... Když to někde zawiruju, bude dávat log třídu Config a ne od kud je log zavolán...
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Bean
