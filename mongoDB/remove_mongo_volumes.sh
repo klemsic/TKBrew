@@ -1,0 +1,2 @@
+
+docker volume rm mongodb_mongodb_data_container
